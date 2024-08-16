@@ -43,6 +43,8 @@ func MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		commands.RollDice(cmd, m)
 	case prefix + "dam":
 		commands.RollDamage(cmd, m)
+	case prefix + "dc":
+		commands.DiceCheck(cmd, m)
 	default:
 		return
 	}
