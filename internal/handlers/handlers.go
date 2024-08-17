@@ -10,7 +10,7 @@ import (
 	"github.com/oarielg/MasteriaBot/internal/discord"
 )
 
-const help string = "This is help"
+const help string = "**Commands:**\n!ping\n!dl\n!roll <dice> *(Example: !roll 1d)*\n!dam <bonus> *(Example: !dam 2)*\n!dc <difficulty> <modifier> *(Example: !dc challenging)*"
 
 func ReadyHandler(s *discordgo.Session, event *discordgo.Ready) {
 	// Set the playing status.
@@ -45,6 +45,8 @@ func MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		commands.RollDamage(cmd, m)
 	case prefix + "dc":
 		commands.DiceCheck(cmd, m)
+	case prefix + "dl":
+		commands.DifficultLevel(cmd, m)
 	default:
 		return
 	}

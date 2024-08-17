@@ -2,6 +2,8 @@ package discord
 
 import (
 	"log/slog"
+
+	"github.com/bwmarrin/discordgo"
 )
 
 func SearchGuildByChannelID(textChannelID string) (guildID string) {
@@ -12,6 +14,13 @@ func SearchGuildByChannelID(textChannelID string) (guildID string) {
 
 func SendChannelMessage(channelID string, message string) {
 	_, err := Session.ChannelMessageSend(channelID, message)
+	if err != nil {
+		slog.Warn("failed to send message to channel", "channelId", channelID, "message", message, "error", err)
+	}
+}
+
+func SendChannelMessageComplex(channelID string, message *discordgo.MessageSend) {
+	_, err := Session.ChannelMessageSendComplex(channelID, message)
 	if err != nil {
 		slog.Warn("failed to send message to channel", "channelId", channelID, "message", message, "error", err)
 	}
