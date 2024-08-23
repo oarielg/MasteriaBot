@@ -7,6 +7,7 @@ import (
 	"syscall"
 
 	"github.com/oarielg/MasteriaBot/internal/config"
+	"github.com/oarielg/MasteriaBot/internal/database"
 	"github.com/oarielg/MasteriaBot/internal/discord"
 	"github.com/oarielg/MasteriaBot/internal/handlers"
 )
@@ -23,6 +24,9 @@ func Run() {
 	//open session
 	discord.InitConnection()
 	defer discord.Session.Close()
+
+	// init database
+	database.Connect()
 
 	fmt.Println("Bot running....")
 

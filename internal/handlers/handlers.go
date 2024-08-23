@@ -13,7 +13,7 @@ import (
 const help string = "**Commands:**\n!ping\n!dl\n!roll <dice> *(Example: !roll 1d)*\n!dam <bonus> *(Example: !dam 2)*\n!dc <difficulty> <modifier> *(Example: !dc challenging)*"
 
 func ReadyHandler(s *discordgo.Session, event *discordgo.Ready) {
-	// Set the playing status.
+	// Set the playing status
 	err := s.UpdateGameStatus(0, config.GetBotStatus())
 	if err != nil {
 		slog.Warn("failed to update game status", "error", err)
@@ -31,7 +31,6 @@ func MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	prefix := config.GetBotPrefix()
 	//guildID := discord.SearchGuildByChannelID(m.ChannelID)
 
-	//	Splitting command into string slice
 	cmd := strings.Split(m.Content, " ")
 
 	switch cmd[0] {
