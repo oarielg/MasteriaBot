@@ -8,6 +8,8 @@ import (
 
 	"github.com/oarielg/MasteriaBot/internal/config"
 	"github.com/oarielg/MasteriaBot/internal/database"
+
+	//"github.com/oarielg/MasteriaBot/internal/database/migrations"
 	"github.com/oarielg/MasteriaBot/internal/discord"
 	"github.com/oarielg/MasteriaBot/internal/handlers"
 )
@@ -27,6 +29,7 @@ func Run() {
 
 	// init database
 	database.Connect()
+	//migrations.AutoMigrate()
 
 	fmt.Println("Bot running....")
 

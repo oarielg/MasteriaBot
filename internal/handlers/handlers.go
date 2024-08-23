@@ -46,6 +46,18 @@ func MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		commands.DiceCheck(cmd, m)
 	case prefix + "dl":
 		commands.DifficultLevel(cmd, m)
+	case prefix + "createchar":
+		commands.CreateChar(cmd, m)
+	case prefix + "chars":
+		commands.ListChars(cmd, m)
+	case prefix + "traits":
+		commands.ListTraits(cmd, m)
+	case prefix + "trait":
+		commands.ShowTrait(cmd, m)
+	case prefix + "powers":
+		commands.ListPowers(cmd, m)
+	case prefix + "power":
+		commands.ShowPower(cmd, m)
 	default:
 		return
 	}
