@@ -34,3 +34,21 @@ func GetPower(ID string) (Power, error) {
 	}
 	return power, nil
 }
+
+func AddCharacterPower(char Character, power Power) error {
+	result := database.DB.Model(&char).Association("Powers").Append(&power)
+	if result != nil {
+		slog.Error("error adding power to the character", "error", result)
+		return result
+	}
+	return nil
+}
+
+func RemoveCharacterPower(char Character, power Power) error {
+	result := database.DB.Model(&char).Association("Powers").Delete(&power)
+	if result != nil {
+		slog.Error("error removing power from the character", "error", result)
+		return result
+	}
+	return nil
+}

@@ -10,8 +10,6 @@ import (
 	"github.com/oarielg/MasteriaBot/internal/discord"
 )
 
-const help string = "**Commands:**\n!ping\n!dl\n!roll <dice> *(Example: !roll 1d)*\n!dam <bonus> *(Example: !dam 2)*\n!dc <difficulty> <modifier> *(Example: !dc challenging)*"
-
 func ReadyHandler(s *discordgo.Session, event *discordgo.Ready) {
 	// Set the playing status
 	err := s.UpdateGameStatus(0, config.GetBotStatus())
@@ -35,7 +33,7 @@ func MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	switch cmd[0] {
 	case prefix + "help":
-		discord.SendChannelMessage(m.ChannelID, help)
+		commands.Help(cmd, m)
 	case prefix + "ping":
 		discord.SendChannelMessage(m.ChannelID, "Pong!")
 	case prefix + "roll":
@@ -48,8 +46,22 @@ func MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		commands.DifficultLevel(cmd, m)
 	case prefix + "createchar":
 		commands.CreateChar(cmd, m)
+	case prefix + "deletechar":
+		commands.DeleteChar(cmd, m)
 	case prefix + "chars":
 		commands.ListChars(cmd, m)
+	case prefix + "char":
+		commands.ShowChar(cmd, m)
+	case prefix + "changename":
+		commands.ChangeName(cmd, m)
+	case prefix + "addtrait":
+		commands.AddTrait(cmd, m)
+	case prefix + "removetrait":
+		commands.RemoveTrait(cmd, m)
+	case prefix + "addpower":
+		commands.AddPower(cmd, m)
+	case prefix + "removepower":
+		commands.RemovePower(cmd, m)
 	case prefix + "traits":
 		commands.ListTraits(cmd, m)
 	case prefix + "trait":

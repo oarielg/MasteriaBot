@@ -36,3 +36,13 @@ func ListCharacters(owner string) ([]Character, error) {
 	}
 	return chars, nil
 }
+
+func GetCharacter(ID string) (Character, error) {
+	var char Character
+	result := database.DB.Preload("Traits").Preload("Powers").First(&char, ID)
+	if result.Error != nil {
+		slog.Error("error retreaving characters", "error", result.Error)
+		return Character{}, result.Error
+	}
+	return char, nil
+}

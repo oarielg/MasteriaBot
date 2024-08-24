@@ -37,3 +37,57 @@ func ShowTrait(cmd []string, m *discordgo.MessageCreate) {
 		}
 	}
 }
+
+func AddTrait(cmd []string, m *discordgo.MessageCreate) {
+	if len(cmd) == 3 {
+		char, err := models.GetCharacter(cmd[1])
+		if err != nil {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" this character does not exist!")
+			return
+		}
+		if char.Owner != m.Author.ID {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" this action is not allowed!")
+			return
+		}
+
+		trait, err := models.GetTrait(cmd[2])
+		if err != nil {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" Trait not found!")
+			return
+		}
+
+		err = models.AddCharacterTrait(char, trait)
+		if err != nil {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" an error ocurred while adding the Trait to the character!")
+		} else {
+			discord.SendChannelMessage(m.ChannelID, fmt.Sprintf("%s, %s trait added to %s successfully!", m.Author.Mention(), trait.Name, char.Name))
+		}
+	}
+}
+
+func RemoveTrait(cmd []string, m *discordgo.MessageCreate) {
+	if len(cmd) == 3 {
+		char, err := models.GetCharacter(cmd[1])
+		if err != nil {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" this character does not exist!")
+			return
+		}
+		if char.Owner != m.Author.ID {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" this action is not allowed!")
+			return
+		}
+
+		trait, err := models.GetTrait(cmd[2])
+		if err != nil {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" Trait not found!")
+			return
+		}
+
+		err = models.RemoveCharacterTrait(char, trait)
+		if err != nil {
+			discord.SendChannelMessage(m.ChannelID, m.Author.Mention()+" an error ocurred while removing the Trait from the character!")
+		} else {
+			discord.SendChannelMessage(m.ChannelID, fmt.Sprintf("%s, %s trait removed from %s successfully!", m.Author.Mention(), trait.Name, char.Name))
+		}
+	}
+}
